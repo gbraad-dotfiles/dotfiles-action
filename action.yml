@@ -14,7 +14,7 @@ runs:
   using: 'composite'
   steps:
     - name: Execute dotfiles command
-      uses: gbraad-actions/dot-action@main
+      uses: gbraad-dotfiles/dot-action@main
       with:
         as_user: ${{ inputs.as_user }}
         run: |
