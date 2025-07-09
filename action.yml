@@ -1,0 +1,28 @@
+name: "gbraad's Dotfiles `dotfiles` Action"
+description: 'Wrapper for dotfiles command execution on GitHub runners'
+author: "Gerard Braad <me@gbraad.nl>"
+inputs:
+  action:
+    description: 'Command to execute (install, reset, update)'
+    required: false
+    default: 'install'
+  as_user:
+    description: 'User to run the commands as (optional)'
+    required: false
+    default: ""
+runs:
+  using: 'composite'
+  steps:
+    - name: Execute dotfiles command
+      uses: gbraad-actions/dot-action@main
+      with:
+        as_user: ${{ inputs.as_user }}
+        run: |
+          # Check if dotfiles function exists
+          if ! type dotfiles >/dev/null 2>&1; then
+            echo "Error: dotfiles function is not defined."
+            exit 1
+          fi
+          
+          # Execute dotfiles command
+          dotfiles ${{ inputs.action }}
